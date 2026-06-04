@@ -99,7 +99,7 @@ async function initCamera() {
     if (state.stream) {
       state.stream.getTracks().forEach(track => track.stop());
     }
-    
+
     let constraints = {
       video: {
         width: { ideal: 1280 },
@@ -302,6 +302,10 @@ function drawFrameOnCtx(ctx, w, h, forCapture = false) {
   else if (frame === 'fashion_news_img') {
     drawFashionNewsImgFrame(ctx, w, h);
   }
+
+  else if (frame === 'woman_news_img') {
+    drawWomanNewsImgFrame(ctx, w, h);
+  }
 }
 
 function drawNewspaperImgFrame(ctx, w, h) {
@@ -406,6 +410,59 @@ function drawFashionNewsImgFrame(ctx, w, h) {
     ctx.font = 'bold 20px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Gambar frame_fashion_news.png tidak ditemukan', w / 2, h / 2);
+  }
+}
+
+function drawWomanNewsImgFrame(ctx, w, h) {
+  const img = document.getElementById('img-frame-woman');
+  if (img && img.complete && img.naturalHeight > 0) {
+    // 1. Gambar frame menutupi seluruh canvas
+    ctx.drawImage(img, 0, 0, w, h);
+
+    // 2. Gambar ulang video HANYA di area kotak hitam
+    // PENTING: Anda bisa menyesuaikan angka-angka ini jika kotaknya kurang pas
+    // X, Y, W, H adalah presentase dari lebar (w) dan tinggi (h)
+    const boxX = w * 0.055;  // Jarak kotak dari kiri (10%)
+    const boxY = h * 0.445;  // Jarak kotak dari atas (20%)
+    const boxW = w * 0.885;  // Lebar kotak (80%)
+    const boxH = h * 0.425;  // Tinggi kotak (50%)
+
+    const video = document.getElementById('video');
+    if (video && video.readyState >= 2) {
+      ctx.save();
+
+      // Apply filter for the inner video
+      ctx.filter = state.currentFilter !== 'none' ? FILTERS[state.currentFilter]?.css || 'none' : 'none';
+
+      const vRatio = video.videoWidth / video.videoHeight;
+      const bRatio = boxW / boxH;
+      let srcX = 0, srcY = 0, srcW = video.videoWidth, srcH = video.videoHeight;
+
+      if (vRatio > bRatio) {
+        srcW = video.videoHeight * bRatio;
+        srcX = (video.videoWidth - srcW) / 2;
+      } else {
+        srcH = video.videoWidth / bRatio;
+        srcY = (video.videoHeight - srcH) / 2;
+      }
+
+      if (state.isMirrored) {
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, srcX, srcY, srcW, srcH, w - (boxX + boxW), boxY, boxW, boxH);
+      } else {
+        ctx.drawImage(video, srcX, srcY, srcW, srcH, boxX, boxY, boxW, boxH);
+      }
+      ctx.restore();
+    }
+  } else {
+    // Fallback jika file tidak ada
+    ctx.fillStyle = '#f4f1ea';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Gambar frame_woman_news.png tidak ditemukan', w / 2, h / 2);
   }
 }
 
@@ -1126,13 +1183,13 @@ function bindEvents() {
       // Tampilkan indikator loading kamera saat switch
       DOM.loadingScreen.classList.remove('hidden');
       DOM.loadingScreen.classList.remove('fade-out');
-      
+
       state.cameraFacing = state.cameraFacing === 'user' ? 'environment' : 'user';
       // Default ke mirror jika pakai kamera depan, tidak mirror jika kamera belakang
       state.isMirrored = (state.cameraFacing === 'user');
       DOM.video.style.transform = state.isMirrored ? 'scaleX(-1)' : 'scaleX(1)';
       DOM.btnFlip.style.color = state.isMirrored ? 'var(--accent-primary)' : 'var(--text-secondary)';
-      
+
       await initCamera();
     });
   }
