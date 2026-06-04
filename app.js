@@ -31,58 +31,58 @@ const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 const DOM = {
-  loadingScreen:    $('#loading-screen'),
-  video:            $('#video'),
-  canvasPreview:    $('#canvas-preview'),
-  canvasMain:       $('#canvas-main'),
+  loadingScreen: $('#loading-screen'),
+  video: $('#video'),
+  canvasPreview: $('#canvas-preview'),
+  canvasMain: $('#canvas-main'),
   countdownOverlay: $('#countdown-overlay'),
-  countdownNum:     $('#countdown-number'),
-  shutterFlash:     $('#shutter-flash'),
-  filterIndicator:  $('#filter-indicator'),
+  countdownNum: $('#countdown-number'),
+  shutterFlash: $('#shutter-flash'),
+  filterIndicator: $('#filter-indicator'),
 
-  btnCapture:       $('#btn-capture'),
-  btnFlip:          $('#btn-flip-camera'),
-  btnReset:         $('#btn-reset'),
+  btnCapture: $('#btn-capture'),
+  btnFlip: $('#btn-flip-camera'),
+  btnReset: $('#btn-reset'),
 
-  bgGrid:           $('#bg-grid'),
-  filterGrid:       $('#filter-grid'),
-  frameGrid:        $('#frame-grid'),
+  bgGrid: $('#bg-grid'),
+  filterGrid: $('#filter-grid'),
+  frameGrid: $('#frame-grid'),
 
-  tabBtns:          $$('.tab-btn'),
-  tabContents:      $$('.tab-content'),
+  tabBtns: $$('.tab-btn'),
+  tabContents: $$('.tab-content'),
 
-  timerBtns:        $$('.btn-timer'),
+  timerBtns: $$('.btn-timer'),
 
-  galleryGrid:      $('#gallery-grid'),
-  galleryEmpty:     $('#gallery-empty'),
-  btnPrintAll:      $('#btn-print-all'),
-  btnClearGallery:  $('#btn-clear-gallery'),
+  galleryGrid: $('#gallery-grid'),
+  galleryEmpty: $('#gallery-empty'),
+  btnPrintAll: $('#btn-print-all'),
+  btnClearGallery: $('#btn-clear-gallery'),
 
-  printModal:       $('#print-modal'),
-  modalClose:       $('#modal-close'),
-  modalBackdrop:    $('.modal-backdrop'),
-  printLayoutBtns:  $$('.print-layout-btn'),
-  btnDoPrint:       $('#btn-do-print'),
-  btnDoDownload:    $('#btn-do-download'),
+  printModal: $('#print-modal'),
+  modalClose: $('#modal-close'),
+  modalBackdrop: $('.modal-backdrop'),
+  printLayoutBtns: $$('.print-layout-btn'),
+  btnDoPrint: $('#btn-do-print'),
+  btnDoDownload: $('#btn-do-download'),
 
-  bgUploadBtn:      $('#bg-upload-btn'),
-  bgUploadInput:    $('#bg-upload-input'),
+  bgUploadBtn: $('#bg-upload-btn'),
+  bgUploadInput: $('#bg-upload-input'),
 
-  printArea:        $('#print-area'),
+  printArea: $('#print-area'),
 };
 
 // =====================================================
 // FILTER DEFINITIONS
 // =====================================================
 const FILTERS = {
-  none:      { label: 'Normal',  css: 'none' },
-  grayscale: { label: 'B&W',     css: 'grayscale(100%)' },
-  sepia:     { label: 'Sepia',   css: 'sepia(100%)' },
-  warm:      { label: 'Warm',    css: 'sepia(30%) saturate(150%) hue-rotate(-15deg) brightness(1.1)' },
-  cool:      { label: 'Cool',    css: 'saturate(80%) hue-rotate(30deg) brightness(1.05)' },
-  vivid:     { label: 'Vivid',   css: 'saturate(200%) contrast(1.1)' },
-  vintage:   { label: 'Vintage', css: 'sepia(40%) saturate(80%) contrast(0.9) brightness(0.95)' },
-  drama:     { label: 'Drama',   css: 'contrast(1.4) brightness(0.9) saturate(1.2)' },
+  none: { label: 'Normal', css: 'none' },
+  grayscale: { label: 'B&W', css: 'grayscale(100%)' },
+  sepia: { label: 'Sepia', css: 'sepia(100%)' },
+  warm: { label: 'Warm', css: 'sepia(30%) saturate(150%) hue-rotate(-15deg) brightness(1.1)' },
+  cool: { label: 'Cool', css: 'saturate(80%) hue-rotate(30deg) brightness(1.05)' },
+  vivid: { label: 'Vivid', css: 'saturate(200%) contrast(1.1)' },
+  vintage: { label: 'Vintage', css: 'sepia(40%) saturate(80%) contrast(0.9) brightness(0.95)' },
+  drama: { label: 'Drama', css: 'contrast(1.4) brightness(0.9) saturate(1.2)' },
 };
 
 // =====================================================
@@ -125,8 +125,8 @@ function showCameraError(err) {
       <h2>Kamera Tidak Tersedia</h2>
       <p style="color: #a0a8c0; margin-top: 8px; max-width: 300px; text-align: center;">
         ${err.name === 'NotAllowedError'
-          ? 'Izin kamera ditolak. Silakan izinkan akses kamera di browser Anda dan refresh halaman.'
-          : 'Tidak dapat mengakses kamera: ' + err.message}
+      ? 'Izin kamera ditolak. Silakan izinkan akses kamera di browser Anda dan refresh halaman.'
+      : 'Tidak dapat mengakses kamera: ' + err.message}
       </p>
       <button onclick="location.reload()" style="margin-top:20px; padding: 10px 24px; background: linear-gradient(135deg, #8b5cf6, #ec4899); border: none; border-radius: 999px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">
         🔄 Coba Lagi
@@ -153,11 +153,11 @@ function startRenderLoop() {
   function render() {
     if (video.readyState >= 2) {
       // Match canvas size to video
-      const vw = video.videoWidth  || 640;
+      const vw = video.videoWidth || 640;
       const vh = video.videoHeight || 480;
 
       if (canvas.width !== vw || canvas.height !== vh) {
-        canvas.width  = vw;
+        canvas.width = vw;
         canvas.height = vh;
       }
 
@@ -204,9 +204,9 @@ function drawFrameOnCtx(ctx, w, h, forCapture = false) {
 
   if (frame === 'polaroid') {
     // White border with thick bottom
-    const bTop  = w * 0.04;
+    const bTop = w * 0.04;
     const bSide = w * 0.04;
-    const bBot  = w * 0.15;
+    const bBot = w * 0.15;
 
     ctx.fillStyle = '#ffffff';
     // Top
@@ -243,7 +243,7 @@ function drawFrameOnCtx(ctx, w, h, forCapture = false) {
     for (let i = 0; i < holeCount; i++) {
       const y = totalGap * (i + 1) - holeH / 2;
       const margin = sideW * 0.15;
-      const holeW  = sideW * 0.65;
+      const holeW = sideW * 0.65;
       // Left holes
       ctx.roundRect(margin, y, holeW, holeH, 2);
       ctx.fill();
@@ -276,6 +276,10 @@ function drawFrameOnCtx(ctx, w, h, forCapture = false) {
   else if (frame === 'newspaper_img') {
     drawNewspaperImgFrame(ctx, w, h);
   }
+
+  else if (frame === 'fashion_news_img') {
+    drawFashionNewsImgFrame(ctx, w, h);
+  }
 }
 
 function drawNewspaperImgFrame(ctx, w, h) {
@@ -291,15 +295,17 @@ function drawNewspaperImgFrame(ctx, w, h) {
     const boxW = w * 0.87;
     const boxH = h * 0.35;
 
-    const video = document.getElementById('video');
     if (video && video.readyState >= 2) {
       ctx.save();
-      
+
+      // Apply filter for the inner video
+      ctx.filter = state.currentFilter !== 'none' ? FILTERS[state.currentFilter]?.css || 'none' : 'none';
+
       // Hitung cropping (object-fit: cover) agar video tidak gepeng
       const vRatio = video.videoWidth / video.videoHeight;
       const bRatio = boxW / boxH;
       let srcX = 0, srcY = 0, srcW = video.videoWidth, srcH = video.videoHeight;
-      
+
       if (vRatio > bRatio) {
         srcW = video.videoHeight * bRatio;
         srcX = (video.videoWidth - srcW) / 2;
@@ -324,7 +330,60 @@ function drawNewspaperImgFrame(ctx, w, h) {
     ctx.fillStyle = '#000';
     ctx.font = 'bold 20px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Silakan simpan gambar sebagai frame_news.jpg', w/2, h/2);
+    ctx.fillText('Silakan simpan gambar sebagai frame_news.jpg', w / 2, h / 2);
+  }
+}
+
+function drawFashionNewsImgFrame(ctx, w, h) {
+  const img = document.getElementById('img-frame-fashion');
+  if (img && img.complete && img.naturalHeight > 0) {
+    // 1. Gambar frame menutupi seluruh canvas
+    ctx.drawImage(img, 0, 0, w, h);
+
+    // 2. Gambar ulang video HANYA di area kotak hitam
+    // PENTING: Anda bisa menyesuaikan angka-angka ini jika kotaknya kurang pas
+    // X, Y, W, H adalah presentase dari lebar (w) dan tinggi (h)
+    const boxX = w * 0.35;  // Jarak kotak dari kiri (10%)
+    const boxY = h * 0.42825;  // Jarak kotak dari atas (20%)
+    const boxW = w * 0.30;  // Lebar kotak (80%)
+    const boxH = h * 0.30;  // Tinggi kotak (50%)
+
+    const video = document.getElementById('video');
+    if (video && video.readyState >= 2) {
+      ctx.save();
+
+      // Apply filter for the inner video
+      ctx.filter = state.currentFilter !== 'none' ? FILTERS[state.currentFilter]?.css || 'none' : 'none';
+
+      const vRatio = video.videoWidth / video.videoHeight;
+      const bRatio = boxW / boxH;
+      let srcX = 0, srcY = 0, srcW = video.videoWidth, srcH = video.videoHeight;
+
+      if (vRatio > bRatio) {
+        srcW = video.videoHeight * bRatio;
+        srcX = (video.videoWidth - srcW) / 2;
+      } else {
+        srcH = video.videoWidth / bRatio;
+        srcY = (video.videoHeight - srcH) / 2;
+      }
+
+      if (state.isMirrored) {
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, srcX, srcY, srcW, srcH, w - (boxX + boxW), boxY, boxW, boxH);
+      } else {
+        ctx.drawImage(video, srcX, srcY, srcW, srcH, boxX, boxY, boxW, boxH);
+      }
+      ctx.restore();
+    }
+  } else {
+    // Fallback jika file tidak ada
+    ctx.fillStyle = '#f4f1ea';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Gambar frame_fashion_news.png tidak ditemukan', w / 2, h / 2);
   }
 }
 
@@ -350,11 +409,11 @@ function drawMissingFrame(ctx, w, h) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
   ctx.fillText('MISSING', w / 2, margin * 0.2);
-  
+
   ctx.fillStyle = '#000';
   ctx.font = `bold ${h * 0.04}px Arial, sans-serif`;
   ctx.fillText('HAVE YOU SEEN THIS PERSON?', w / 2, margin * 1.6);
-  
+
   ctx.font = `bold ${h * 0.03}px Arial, sans-serif`;
   ctx.fillText('CALL LOCAL AUTHORITIES IMMEDIATELY', w / 2, h - margin * 1.2);
 }
@@ -365,14 +424,14 @@ function drawPrisonerFrame(ctx, w, h) {
   ctx.strokeStyle = 'rgba(0,0,0,0.3)';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  for(let y=0; y<h; y+=h/10) {
+  for (let y = 0; y < h; y += h / 10) {
     ctx.moveTo(0, y);
-    ctx.lineTo(w*0.1, y);
-    ctx.moveTo(w*0.9, y);
+    ctx.lineTo(w * 0.1, y);
+    ctx.moveTo(w * 0.9, y);
     ctx.lineTo(w, y);
   }
   ctx.stroke();
-  
+
   // Height text
   ctx.fillStyle = 'rgba(0,0,0,0.5)';
   ctx.font = `${h * 0.03}px monospace`;
@@ -397,14 +456,14 @@ function drawPrisonerFrame(ctx, w, h) {
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  
+
   ctx.font = `bold ${h * 0.04}px monospace`;
   ctx.fillText('DEPT. OF CORRECTIONS', w / 2, by + bh * 0.25);
-  
+
   ctx.font = `bold ${h * 0.06}px monospace`;
   const randomId = Math.floor(Math.random() * 900000) + 100000;
   ctx.fillText(`ID: ${randomId}`, w / 2, by + bh * 0.6);
-  
+
   ctx.font = `${h * 0.03}px monospace`;
   const date = new Date().toLocaleDateString('en-GB');
   ctx.fillText(`DATE: ${date}`, w / 2, by + bh * 0.85);
@@ -414,7 +473,7 @@ function drawNewsFrame(ctx, w, h) {
   // 1. Latar belakang putih
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, w, h);
-  
+
   // 2. Top Bar
   // Hamburger menu
   ctx.fillStyle = '#000';
@@ -426,14 +485,14 @@ function drawNewsFrame(ctx, w, h) {
   ctx.fillRect(menuX, menuY, menuW, menuLineH);
   ctx.fillRect(menuX, menuY + menuLineH + menuGap, menuW, menuLineH);
   ctx.fillRect(menuX, menuY + (menuLineH + menuGap) * 2, menuW, menuLineH);
-  
+
   // "ECONOMIC NEWS"
   ctx.fillStyle = '#000';
   ctx.font = `italic 900 ${h * 0.05}px Arial, sans-serif`;
   ctx.textAlign = 'right';
   ctx.textBaseline = 'top';
   ctx.fillText('ECONOMIC NEWS', w * 0.95, h * 0.06);
-  
+
   // Red dot
   const textWidth = ctx.measureText('ECONOMIC NEWS').width;
   ctx.beginPath();
@@ -446,14 +505,14 @@ function drawNewsFrame(ctx, w, h) {
   const boxY = h * 0.15;
   const boxW = w * 0.9;
   const boxH = h * 0.58;
-  
+
   const video = document.getElementById('video');
   if (video && video.readyState >= 2) {
     ctx.save();
     const vRatio = video.videoWidth / video.videoHeight;
     const bRatio = boxW / boxH;
     let srcX = 0, srcY = 0, srcW = video.videoWidth, srcH = video.videoHeight;
-    
+
     if (vRatio > bRatio) {
       srcW = video.videoHeight * bRatio;
       srcX = (video.videoWidth - srcW) / 2;
@@ -474,21 +533,21 @@ function drawNewsFrame(ctx, w, h) {
     ctx.fillStyle = '#ccc';
     ctx.fillRect(boxX, boxY, boxW, boxH);
   }
-  
+
   // 4. BREAKING NEWS Red Box (Overlap bawah kiri video)
   const bnX = w * 0.05;
-  const bnY = boxY + boxH - (h * 0.1); 
+  const bnY = boxY + boxH - (h * 0.1);
   const bnW = w * 0.55;
   const bnH = h * 0.12;
   ctx.fillStyle = '#b30000';
   ctx.fillRect(bnX, bnY, bnW, bnH);
-  
+
   ctx.fillStyle = '#fff';
   ctx.font = `italic 900 ${h * 0.06}px Arial, sans-serif`;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   ctx.fillText('BREAKING NEWS', bnX + (w * 0.03), bnY + (bnH / 2));
-  
+
   // 5. Paragraf Teks
   ctx.fillStyle = '#000';
   ctx.font = `normal ${h * 0.035}px Arial, sans-serif`;
@@ -498,25 +557,25 @@ function drawNewsFrame(ctx, w, h) {
   ctx.fillText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed', w * 0.05, textY);
   ctx.fillText('do eiusmod tempor incididunt ut labore et dolore magna', w * 0.05, textY + (h * 0.04));
   ctx.fillText('aliqua. Ut enim ad minim veniam', w * 0.05, textY + (h * 0.08));
-  
+
   // 6. Footer (Tombol READ MORE dan Web)
   const footerY = h * 0.88;
   const readMoreW = w * 0.3;
   const readMoreH = h * 0.08;
   ctx.fillStyle = '#b30000';
   ctx.fillRect(w * 0.05, footerY, readMoreW, readMoreH);
-  
+
   ctx.fillStyle = '#fff';
   ctx.font = `900 ${h * 0.035}px Arial, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('READ MORE', w * 0.05 + (readMoreW / 2), footerY + (readMoreH / 2));
-  
+
   ctx.fillStyle = '#000';
   ctx.font = `normal ${h * 0.035}px Arial, sans-serif`;
   ctx.textAlign = 'right';
   ctx.fillText('www.reallygreatsite.com', w * 0.95, footerY + (readMoreH / 2));
-  
+
   // Garis abu-abu di atas www
   ctx.beginPath();
   ctx.moveTo(w * 0.05 + readMoreW + 10, footerY);
@@ -547,10 +606,10 @@ function drawWantedFrame(ctx, w, h) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
   ctx.fillText('WANTED', w / 2, h * 0.1);
-  
+
   ctx.font = `bold ${h * 0.08}px serif`;
   ctx.fillText('DEAD OR ALIVE', w / 2, h * 0.25);
-  
+
   ctx.font = `bold ${h * 0.06}px serif`;
   ctx.fillText('$1,000,000 REWARD', w / 2, h * 0.85);
 }
@@ -561,7 +620,7 @@ function drawMagazineFrame(ctx, w, h) {
   ctx.font = `900 ${h * 0.25}px "Times New Roman", serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  
+
   ctx.shadowColor = 'rgba(0,0,0,0.5)';
   ctx.shadowBlur = 10;
   ctx.shadowOffsetY = 5;
@@ -587,14 +646,14 @@ function drawMagazineFrame(ctx, w, h) {
   ctx.fillText('Exclusive', w * 0.95, h * 0.7);
   ctx.font = `bold ${h * 0.05}px sans-serif`;
   ctx.fillText('NEW TRENDS', w * 0.95, h * 0.76);
-  
+
   ctx.shadowColor = 'transparent';
-  
+
   // Barcode
   ctx.fillStyle = '#fff';
   ctx.fillRect(w * 0.8, h * 0.85, w * 0.15, h * 0.1);
   ctx.fillStyle = '#000';
-  for(let i=0; i<15; i++) {
+  for (let i = 0; i < 15; i++) {
     const bw = Math.random() * w * 0.01 + w * 0.002;
     const bx = w * 0.81 + i * (w * 0.009);
     ctx.fillRect(bx, h * 0.86, bw, h * 0.07);
@@ -628,10 +687,10 @@ function drawPatternBorder(ctx, w, h, color, emoji, size, forCapture) {
 function drawGlitterBorder(ctx, w, h) {
   const borderW = Math.floor(w * 0.07);
   const gradient = ctx.createLinearGradient(0, 0, w, h);
-  gradient.addColorStop(0,    '#a855f7');
+  gradient.addColorStop(0, '#a855f7');
   gradient.addColorStop(0.33, '#ec4899');
   gradient.addColorStop(0.66, '#f59e0b');
-  gradient.addColorStop(1,    '#a855f7');
+  gradient.addColorStop(1, '#a855f7');
 
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, w, borderW);
@@ -712,10 +771,10 @@ function takeSnapshot() {
 
   // Gunakan canvas baru di memori untuk menghindari bug filter pada display:none
   const canvas = document.createElement('canvas');
-  const w = video.videoWidth  || 640;
+  const w = video.videoWidth || 640;
   const h = video.videoHeight || 480;
 
-  canvas.width  = w;
+  canvas.width = w;
   canvas.height = h;
 
   const ctx = canvas.getContext('2d');
@@ -939,8 +998,8 @@ function buildPrintArea(photos, layout) {
   photoWrap.className = `print-layout-${layout}`;
 
   const photosToRender = layout === 1 ? photos.slice(0, 1)
-                        : layout === 2 ? photos.slice(0, 2)
-                        : photos.slice(0, 4);
+    : layout === 2 ? photos.slice(0, 2)
+      : photos.slice(0, 4);
 
   // Pad if not enough photos
   while (photosToRender.length < layout && photosToRender.length > 0) {

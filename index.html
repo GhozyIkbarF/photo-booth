@@ -87,7 +87,16 @@
           <canvas id="canvas-preview" class="canvas-preview"></canvas>
 
           <!-- Hidden Image for Custom Frame -->
-          <img id="img-frame-news" src="assets/backgrounds/frame_news.jpg" class="hidden" />
+          <img
+            id="img-frame-news"
+            src="assets/backgrounds/frame_news.jpg"
+            class="hidden"
+          />
+          <img
+            id="img-frame-fashion"
+            src="assets/backgrounds/frame_fashion_news.png"
+            class="hidden"
+          />
 
           <!-- Camera controls overlay -->
           <div class="camera-overlay-controls">
@@ -356,49 +365,113 @@
               <span>Film Strip</span>
             </button>
             <button class="frame-item" data-frame="news" id="frame-news">
-            <div class="frame-preview frame-preview-news">
-              <div class="fp-photo-area"></div>
-              <div class="fp-news-bar">BREAKING</div>
-            </div>
-            <span>Berita LIVE</span>
-          </button>
-          <button class="frame-item" data-frame="wanted" id="frame-wanted">
-            <div class="frame-preview frame-preview-wanted">
-              <div class="fp-wanted-text">WANTED</div>
-              <div class="fp-photo-area"></div>
-            </div>
-            <span>Buronan</span>
-          </button>
-          <button class="frame-item" data-frame="magazine" id="frame-magazine">
-            <div class="frame-preview frame-preview-magazine">
-              <div class="fp-mag-title">VOGUE</div>
-              <div class="fp-photo-area"></div>
-            </div>
-            <span>Majalah</span>
-          </button>
-          <button class="frame-item" data-frame="newspaper_img" id="frame-newspaper-img">
-            <div class="frame-preview" style="background: #e5e5e5; padding: 4px; display: flex; flex-direction: column;">
-              <div style="font-size: 8px; font-weight: 900; text-align: center; margin-bottom: 2px;">BREAKING NEWS</div>
-              <div class="fp-photo-area" style="flex: 1; background: #000;"></div>
-            </div>
-            <span>Koran (Foto)</span>
-          </button>
-          <button class="frame-item" data-frame="missing" id="frame-missing">
-            <div class="frame-preview frame-preview-missing">
-              <div class="fp-missing-text">MISSING</div>
-              <div class="fp-photo-area"></div>
-            </div>
-            <span>Orang Hilang</span>
-          </button>
-          <button class="frame-item" data-frame="prisoner" id="frame-prisoner">
-            <div class="frame-preview frame-preview-prisoner">
-              <div class="fp-photo-area"></div>
-              <div class="fp-prisoner-board">
-                <div class="fp-pb-text">DEPT. OF CORRECTIONS</div>
+              <div class="frame-preview frame-preview-news">
+                <div class="fp-photo-area"></div>
+                <div class="fp-news-bar">BREAKING</div>
               </div>
-            </div>
-            <span>Tahanan</span>
-          </button>
+              <span>Berita LIVE</span>
+            </button>
+            <button class="frame-item" data-frame="wanted" id="frame-wanted">
+              <div class="frame-preview frame-preview-wanted">
+                <div class="fp-wanted-text">WANTED</div>
+                <div class="fp-photo-area"></div>
+              </div>
+              <span>Buronan</span>
+            </button>
+            <button
+              class="frame-item"
+              data-frame="magazine"
+              id="frame-magazine"
+            >
+              <div class="frame-preview frame-preview-magazine">
+                <div class="fp-mag-title">VOGUE</div>
+                <div class="fp-photo-area"></div>
+              </div>
+              <span>Majalah</span>
+            </button>
+            <button
+              class="frame-item"
+              data-frame="newspaper_img"
+              id="frame-newspaper-img"
+            >
+              <div
+                class="frame-preview"
+                style="
+                  background: #e5e5e5;
+                  padding: 4px;
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <div
+                  style="
+                    font-size: 8px;
+                    font-weight: 900;
+                    text-align: center;
+                    margin-bottom: 2px;
+                  "
+                >
+                  BREAKING NEWS
+                </div>
+                <div
+                  class="fp-photo-area"
+                  style="flex: 1; background: #000"
+                ></div>
+              </div>
+              <span>Koran (Foto)</span>
+            </button>
+            <button
+              class="frame-item"
+              data-frame="fashion_news_img"
+              id="frame-fashion-img"
+            >
+              <div
+                class="frame-preview"
+                style="
+                  background: #fdf5e6;
+                  padding: 4px;
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <div
+                  style="
+                    font-size: 8px;
+                    font-weight: 900;
+                    text-align: center;
+                    margin-bottom: 2px;
+                    font-family: serif;
+                  "
+                >
+                  FASHION
+                </div>
+                <div
+                  class="fp-photo-area"
+                  style="flex: 1; background: #000"
+                ></div>
+              </div>
+              <span>Berita Fashion</span>
+            </button>
+            <button class="frame-item" data-frame="missing" id="frame-missing">
+              <div class="frame-preview frame-preview-missing">
+                <div class="fp-missing-text">MISSING</div>
+                <div class="fp-photo-area"></div>
+              </div>
+              <span>Orang Hilang</span>
+            </button>
+            <button
+              class="frame-item"
+              data-frame="prisoner"
+              id="frame-prisoner"
+            >
+              <div class="frame-preview frame-preview-prisoner">
+                <div class="fp-photo-area"></div>
+                <div class="fp-prisoner-board">
+                  <div class="fp-pb-text">DEPT. OF CORRECTIONS</div>
+                </div>
+              </div>
+              <span>Tahanan</span>
+            </button>
           </div>
         </div>
       </aside>
