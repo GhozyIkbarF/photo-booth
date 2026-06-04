@@ -1,0 +1,146 @@
+/* =====================================================
+   SNAPBOOTH — PRINT STYLESHEET
+   ===================================================== */
+
+@media print {
+  /* Hide everything except the print area */
+  body > *:not(#print-area) {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  #print-area {
+    display: block !important;
+    width: 100%;
+    background: #fff;
+  }
+
+  /* ===== Print Area Layouts ===== */
+  .print-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20mm;
+    gap: 10mm;
+    page-break-inside: avoid;
+  }
+
+  .print-header {
+    text-align: center;
+    margin-bottom: 8mm;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .print-header h1 {
+    font-size: 24pt;
+    font-weight: 800;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+    margin-bottom: 2mm;
+  }
+
+  .print-header p {
+    font-size: 10pt;
+    color: #888;
+  }
+
+  /* Layout 1: Single photo */
+  .print-layout-1 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .print-layout-1 .print-photo {
+    width: 180mm;
+    page-break-inside: avoid;
+  }
+
+  /* Layout 2: Two photos side by side */
+  .print-layout-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 8mm;
+    align-items: center;
+  }
+
+  .print-layout-2 .print-photo {
+    width: 160mm;
+  }
+
+  /* Layout 4: Four photos (2x2 grid) */
+  .print-layout-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+    width: 180mm;
+  }
+
+  .print-layout-4 .print-photo {
+    width: 100%;
+  }
+
+  /* Strip Layout */
+  .print-layout-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 4mm;
+    width: 90mm;
+    background: #1a1a1a;
+    padding: 8mm;
+    border-radius: 4mm;
+  }
+
+  .print-layout-strip .print-photo {
+    width: 100%;
+  }
+
+  /* Photo item */
+  .print-photo {
+    position: relative;
+    page-break-inside: avoid;
+  }
+
+  .print-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 3mm;
+  }
+
+  /* Polaroid frame */
+  .print-photo.frame-polaroid {
+    background: #fff;
+    padding: 4mm 4mm 14mm;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 2mm;
+  }
+
+  .print-photo.frame-polaroid img {
+    border-radius: 1mm;
+  }
+
+  /* Film strip frame */
+  .print-photo.frame-film {
+    background: #1a1a1a;
+    padding: 4mm 8mm;
+  }
+
+  .print-photo.frame-film img {
+    border-radius: 0;
+  }
+
+  /* Footer */
+  .print-footer {
+    text-align: center;
+    margin-top: 8mm;
+    font-family: 'Outfit', sans-serif;
+    font-size: 8pt;
+    color: #aaa;
+  }
+}
