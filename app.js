@@ -320,10 +320,10 @@ function drawNewspaperImgFrame(ctx, w, h) {
 
     // 2. Gambar ulang video HANYA di area kotak hitam
     // Estimasi posisi kotak hitam berdasarkan rasio gambar:
-    const boxX = w * 0.065;
-    const boxY = h * 0.525;
-    const boxW = w * 0.87;
-    const boxH = h * 0.35;
+    const boxX = w * 0.06637;
+    const boxY = h * 0.529;
+    const boxW = w * 0.8678;
+    const boxH = h * 0.351;
 
     if (video && video.readyState >= 2) {
       ctx.save();
