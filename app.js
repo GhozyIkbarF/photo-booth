@@ -92,10 +92,15 @@ const FILTERS = {
 // =====================================================
 async function initCamera() {
   try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error("Akses kamera diblokir. Pastikan Anda membuka link HTTPS atau localhost, bukan alamat IP biasa.");
+    }
+
     if (state.stream) {
       state.stream.getTracks().forEach(track => track.stop());
     }
-    const constraints = {
+    
+    let constraints = {
       video: {
         width: { ideal: 1280 },
         height: { ideal: 960 },
@@ -104,7 +109,17 @@ async function initCamera() {
       audio: false,
     };
 
-    state.stream = await navigator.mediaDevices.getUserMedia(constraints);
+    try {
+      state.stream = await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (fallbackErr) {
+      // Fallback jika HP menolak resolusi tinggi
+      constraints = {
+        video: { facingMode: state.cameraFacing },
+        audio: false
+      };
+      state.stream = await navigator.mediaDevices.getUserMedia(constraints);
+    }
+
     DOM.video.srcObject = state.stream;
 
     await new Promise((res) => {
