@@ -16,6 +16,7 @@ const state = {
   timerSeconds: 0,
   isCapturing: false,
   isMirrored: true,
+  cameraFacing: 'user', // 'user' or 'environment'
   photos: [],           // Array of { id, dataUrl, bg, filter, frame, timestamp }
   selectedPhotoIds: [], // IDs for print selection
   printLayout: 1,
@@ -42,6 +43,7 @@ const DOM = {
 
   btnCapture: $('#btn-capture'),
   btnFlip: $('#btn-flip-camera'),
+  btnSwitchCam: $('#btn-switch-camera'),
   btnReset: $('#btn-reset'),
 
   bgGrid: $('#bg-grid'),
@@ -90,11 +92,14 @@ const FILTERS = {
 // =====================================================
 async function initCamera() {
   try {
+    if (state.stream) {
+      state.stream.getTracks().forEach(track => track.stop());
+    }
     const constraints = {
       video: {
         width: { ideal: 1280 },
         height: { ideal: 960 },
-        facingMode: 'user',
+        facingMode: state.cameraFacing,
       },
       audio: false,
     };
@@ -110,7 +115,9 @@ async function initCamera() {
     });
 
     // Start rendering loop
-    startRenderLoop();
+    if (!state.animFrameId) {
+      startRenderLoop();
+    }
     hideLoading();
   } catch (err) {
     console.error('Camera error:', err);
@@ -1097,6 +1104,23 @@ function bindEvents() {
       ? 'var(--accent-primary)'
       : 'var(--text-secondary)';
   });
+
+  // --- Switch Camera ---
+  if (DOM.btnSwitchCam) {
+    DOM.btnSwitchCam.addEventListener('click', async () => {
+      // Tampilkan indikator loading kamera saat switch
+      DOM.loadingScreen.classList.remove('hidden');
+      DOM.loadingScreen.classList.remove('fade-out');
+      
+      state.cameraFacing = state.cameraFacing === 'user' ? 'environment' : 'user';
+      // Default ke mirror jika pakai kamera depan, tidak mirror jika kamera belakang
+      state.isMirrored = (state.cameraFacing === 'user');
+      DOM.video.style.transform = state.isMirrored ? 'scaleX(-1)' : 'scaleX(1)';
+      DOM.btnFlip.style.color = state.isMirrored ? 'var(--accent-primary)' : 'var(--text-secondary)';
+      
+      await initCamera();
+    });
+  }
 
   // --- Reset ---
   DOM.btnReset.addEventListener('click', resetSession);
