@@ -2,12 +2,6 @@
 // CONSTANTS — Backgrounds & Frames config
 // =====================================================
 
-export interface BackgroundItem {
-  id: string;
-  label: string;
-  value: string; // 'none' or path
-  isUpload?: boolean;
-}
 
 export interface FrameItem {
   id: string;
@@ -21,16 +15,6 @@ export interface FilterItem {
   previewClass: string;
 }
 
-export const BACKGROUNDS: BackgroundItem[] = [
-  { id: 'bg-none',    label: 'Tanpa BG',    value: 'none' },
-  { id: 'bg-studio',  label: 'Studio Gold', value: '/assets/backgrounds/bg_studio_gold.png' },
-  { id: 'bg-forest',  label: 'Hutan',       value: '/assets/backgrounds/bg_nature_forest.png' },
-  { id: 'bg-city',    label: 'Kota Malam',  value: '/assets/backgrounds/bg_city_night.png' },
-  { id: 'bg-beach',   label: 'Pantai',      value: '/assets/backgrounds/bg_sunset_beach.png' },
-  { id: 'bg-galaxy',  label: 'Galaxy',      value: '/assets/backgrounds/bg_galaxy_space.png' },
-  { id: 'bg-sakura',  label: 'Sakura',      value: '/assets/backgrounds/bg_cherry_blossom.png' },
-  { id: 'bg-upload',  label: 'Upload',      value: 'upload', isUpload: true },
-];
 
 export const FILTER_LIST: FilterItem[] = [
   { id: 'filter-none',    label: 'Normal',  previewClass: 'fp-none' },
@@ -61,7 +45,6 @@ export const FRAMES: FrameItem[] = [
 export interface Photo {
   id: number;
   dataUrl: string;
-  bg: string;
   filter: string;
   frame: string;
   timestamp: string;

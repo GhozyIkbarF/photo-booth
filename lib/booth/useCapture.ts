@@ -5,11 +5,9 @@ import { drawFrameOnCtx } from './frameDrawing';
 import type { Photo } from './constants';
 
 interface CaptureState {
-  currentBackground: string;
   currentFilter: string;
   currentFrame: string;
   isMirrored: boolean;
-  bgImage: HTMLImageElement | null;
 }
 
 export function useCapture() {
@@ -54,10 +52,7 @@ export function useCapture() {
       ? FILTERS[captureState.currentFilter]?.css || 'none'
       : 'none';
 
-    // Draw background
-    if (captureState.bgImage && captureState.currentBackground !== 'none') {
-      ctx.drawImage(captureState.bgImage, 0, 0, w, h);
-    }
+
 
     // Draw video (mirrored)
     ctx.save();
@@ -98,7 +93,6 @@ export function useCapture() {
     const photo: Photo = {
       id: Date.now(),
       dataUrl,
-      bg: captureState.currentBackground,
       filter: captureState.currentFilter,
       frame: captureState.currentFrame,
       timestamp: new Date().toLocaleString('id-ID'),

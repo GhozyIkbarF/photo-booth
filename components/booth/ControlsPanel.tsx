@@ -2,50 +2,25 @@
 
 import { useRef } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BACKGROUNDS, FILTER_LIST, FRAMES } from '@/lib/booth/constants';
+import { FILTER_LIST, FRAMES } from '@/lib/booth/constants';
 
 interface ControlsPanelProps {
-  currentBackground: string;
   currentFilter: string;
   currentFrame: string;
-  onSelectBackground: (value: string) => void;
   onSelectFilter: (value: string) => void;
   onSelectFrame: (value: string) => void;
 }
 
 export function ControlsPanel({
-  currentBackground,
   currentFilter,
   currentFrame,
-  onSelectBackground,
   onSelectFilter,
   onSelectFrame,
 }: ControlsPanelProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // ── Custom background upload ──────────────────────────
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target?.result as string;
-      onSelectBackground(dataUrl);
-    };
-    reader.readAsDataURL(file);
-    e.target.value = '';
-  };
-
   return (
     <aside className="h-fit overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#171a2d]">
-      <Tabs defaultValue="background">
-        <TabsList className="grid w-full grid-cols-3 rounded-none border-b border-white/[0.08] bg-transparent p-0">
-          <TabsTrigger
-            value="background"
-            className="rounded-none border-b-2 border-transparent py-3.5 text-xs font-semibold text-[#555b77] data-[state=active]:border-violet-500 data-[state=active]:bg-[rgba(139,92,246,0.06)] data-[state=active]:text-violet-400"
-          >
-            🖼️ Background
-          </TabsTrigger>
+      <Tabs defaultValue="filter">
+        <TabsList className="grid w-full grid-cols-2 rounded-none border-b border-white/[0.08] bg-transparent p-0">
           <TabsTrigger
             value="filter"
             className="rounded-none border-b-2 border-transparent py-3.5 text-xs font-semibold text-[#555b77] data-[state=active]:border-pink-500 data-[state=active]:bg-[rgba(236,72,153,0.06)] data-[state=active]:text-pink-400"
@@ -60,48 +35,7 @@ export function ControlsPanel({
           </TabsTrigger>
         </TabsList>
 
-        {/* ── Background Tab ──────────────────────────── */}
-        <TabsContent value="background" className="max-h-[450px] overflow-y-auto p-4">
-          <p className="mb-3 text-[11px] font-bold uppercase tracking-widest text-[#555b77]">Pilih Background</p>
-          <div className="grid grid-cols-2 gap-2.5">
-            {BACKGROUNDS.map((bg) => {
-              const isActive = currentBackground === bg.value;
-              return (
-                <button
-                  key={bg.id}
-                  onClick={() => bg.isUpload ? fileInputRef.current?.click() : onSelectBackground(bg.value)}
-                  className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-1.5 text-[11px] font-medium transition-all hover:-translate-y-0.5 ${
-                    isActive
-                      ? 'border-violet-500 bg-[rgba(139,92,246,0.1)] text-violet-400 shadow-[0_0_0_3px_rgba(139,92,246,0.15)]'
-                      : 'border-white/[0.08] bg-white/5 text-[#a0a8c0] hover:border-violet-500 hover:bg-white/[0.09]'
-                  }`}
-                >
-                  {bg.value === 'none' ? (
-                    <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg bg-[repeating-conic-gradient(#11131f_0%_25%,rgba(255,255,255,0.05)_0%_50%)_0_0/14px_14px]">
-                      <svg className="h-6 w-6 text-[#555b77]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-                      </svg>
-                    </div>
-                  ) : bg.isUpload ? (
-                    <div className="flex aspect-[4/3] w-full items-center justify-center rounded-lg border-2 border-dashed border-white/[0.08] bg-white/5">
-                      <svg className="h-6 w-6 text-[#555b77]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
-                      </svg>
-                    </div>
-                  ) : (
-                    <div
-                      className="aspect-[4/3] w-full rounded-lg bg-cover bg-center"
-                      style={{ backgroundImage: `url("${bg.value}")` }}
-                    />
-                  )}
-                  <span>{bg.label}</span>
-                </button>
-              );
-            })}
-          </div>
-          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-        </TabsContent>
+
 
         {/* ── Filter Tab ───────────────────────────────── */}
         <TabsContent value="filter" className="max-h-[450px] overflow-y-auto p-4">

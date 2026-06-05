@@ -15,10 +15,8 @@ import type { Photo } from "@/lib/booth/constants";
 
 export function PhotoBooth() {
   // ── Settings state ──────────────────────────────────
-  const [currentBackground, setCurrentBackground] = useState("none");
   const [currentFilter, setCurrentFilter] = useState("none");
   const [currentFrame, setCurrentFrame] = useState("none");
-  const bgImageRef = useRef<HTMLImageElement | null>(null);
 
   // ── Hooks ────────────────────────────────────────────
   const camera = useCamera();
@@ -104,12 +102,6 @@ export function PhotoBooth() {
           ? FILTERS[currentFilter]?.css || "none"
           : "none";
 
-      if (bgImageRef.current && currentBackground !== "none") {
-        ctx.save();
-        ctx.drawImage(bgImageRef.current, 0, 0, vw, vh);
-        ctx.restore();
-      }
-
       ctx.save();
       if (camera.isMirrored) {
         ctx.translate(vw, 0);
@@ -129,39 +121,22 @@ export function PhotoBooth() {
   // Restart render loop when settings change
   useEffect(() => {
     startRenderLoop();
-  }, [currentFilter, currentFrame, currentBackground, camera.isMirrored]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentFilter, currentFrame, camera.isMirrored]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Background load ──────────────────────────────────
-  const handleSelectBackground = useCallback((value: string) => {
-    setCurrentBackground(value);
-    bgImageRef.current = null;
-    if (value !== "none") {
-      const img = new Image();
-      img.onload = () => {
-        bgImageRef.current = img;
-      };
-      img.onerror = () => {
-        bgImageRef.current = null;
-      };
-      img.src = value;
-    }
-  }, []);
+
 
   // ── Handle capture ───────────────────────────────────
   const handleCapture = useCallback(() => {
     capture.capturePhoto(
       {
-        currentBackground,
         currentFilter,
         currentFrame,
         isMirrored: camera.isMirrored,
-        bgImage: bgImageRef.current,
       },
       (photo: Photo) => store.addPhoto(photo),
     );
   }, [
     capture,
-    currentBackground,
     currentFilter,
     currentFrame,
     camera.isMirrored,
@@ -191,11 +166,10 @@ export function PhotoBooth() {
     if (!confirm("Hapus semua foto dan reset sesi? Semua foto akan hilang."))
       return;
     store.clearAll();
-    handleSelectBackground("none");
     setCurrentFilter("none");
     setCurrentFrame("none");
     capture.setTimerSeconds(0);
-  }, [store, handleSelectBackground, capture]);
+  }, [store, capture]);
 
   // ── Keyboard shortcuts ────────────────────────────────
   useEffect(() => {
@@ -359,10 +333,8 @@ export function PhotoBooth() {
 
         {/* Controls panel */}
         <ControlsPanel
-          currentBackground={currentBackground}
           currentFilter={currentFilter}
           currentFrame={currentFrame}
-          onSelectBackground={handleSelectBackground}
           onSelectFilter={setCurrentFilter}
           onSelectFrame={setCurrentFrame}
         />
