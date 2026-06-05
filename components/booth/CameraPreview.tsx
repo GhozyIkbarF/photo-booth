@@ -11,7 +11,7 @@ export function CameraPreview({ countdown, showFlash, filterLabel }: CameraPrevi
     <div className="relative w-full max-w-[720px]">
       {/* Camera wrapper */}
       <div
-        className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border border-[rgba(139,92,246,0.4)] bg-[#171a2d]"
+        className="relative aspect-[3/4] md:aspect-[4/3] w-full overflow-hidden rounded-[28px] border border-[rgba(139,92,246,0.4)] bg-[#171a2d]"
         style={{ boxShadow: '0 0 30px rgba(139,92,246,0.3), 0 20px 60px rgba(0,0,0,0.6)' }}
       >
         {/* Corner decorators */}
